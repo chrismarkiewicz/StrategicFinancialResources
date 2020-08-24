@@ -1,0 +1,68 @@
+<template>
+    <lightning-card>
+    <template if:true={debtList}>
+        
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    <th class="" scope="col">
+                        <div class="slds-truncate">
+                            <lightning-input onchange={allSelected} type="checkbox" value="allCheck"></lightning-input>
+                        </div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="cred">Creditor</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="fname">First Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="lname">Last Name</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="minpay">Min Pay%</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="bal">Balance</div>
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <template for:each={debtList} for:item="adebt">
+                    <tr class="slds-hint-parent" key={adebt.id}>
+                        <td >
+                            <div class="slds-truncate" > 
+                                <lightning-input type="checkbox" value={adebt.id} data-id={adebt.id} ></lightning-input>
+                            </div>
+                        </td>
+                        <td >
+                            <div class="slds-truncate" ><lightning-input type="text" value={adebt.creditorName} data-id={adebt.id} onchange={handleCreditorNameChange} ></lightning-input></div>
+                        </td>
+                        <td >
+                            <div class="slds-truncate" >{adebt.firstName}</div>
+                        </td>
+                        <td >
+                            <div class="slds-truncate" >{adebt.lastName}</div>
+                        </td>
+                        <td >
+                            <div class="slds-truncate" ><lightning-formatted-number value={adebt.minPaymentPercentage} format-style="percent" ></lightning-formatted-number></div>
+                        </td>
+                        <td >
+                            <div class="slds-truncate" ><lightning-formatted-number value={adebt.balance} format-style="currency" ></lightning-formatted-number></div>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+
+
+        </table>
+        <div>
+            <lightning-button variant="brand" label="Add Debt" onclick={handleAddDebt} class="slds-m-left_x-small"></lightning-button>
+            <lightning-button variant="brand" label="Remove Debt" onclick={handleRemoveDebt} class="slds-m-left_x-small"></lightning-button>
+        </div>
+        <div>Total Row Count:{debtList.length}</div>
+        <div>Total:{debtTotal}</div>
+    </template>
+</lightning-card>
+</template>
